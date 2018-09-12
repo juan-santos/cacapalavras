@@ -1,44 +1,12 @@
 #include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include"conio2.h"
-
-#define TRUE 1
-#define FALSE 0
-#define NUMERO_PALAVRAS 6
-#define NUMERO_LETRAS 10
-#define ACHOU 1
-#define NAO_ACHOU 0
-
-#define PRETO 1
-
-typedef struct{
-      char letra;
-      int achou;
-      int cor;
-   }TLetra;
-
-//procurar palavras pela horizontal da matriz
-int horizontal(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-int procurarHorizontal(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-int procurarHorizontalInvertido(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-int vertical(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-int procurarVertical(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-int procurarVerticalInvertido(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-void inverter(char **palavraProcurada, char **palavraInvertida);
-//int procurarDiagonal(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
-//int procurarDiagonalInvertida(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto);
+#include "ProcuraMatriz.h"
 
 int escreverArquivoSaida(int *nroLinhas, int *nroColunas, TLetra ***texto);
-
-//obter informações do arquivo
 int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetra ***texto);
 
 int main(){
-    //número de linhas da matriz
-    int nroLinhas = 0;
-    //numero de colunas da matriz
-    int nroColunas = 0;
+
+    int nroLinhas = 0, nroColunas = 0;
 
     //declaro as strings
     TLetra **texto = NULL;
@@ -77,6 +45,30 @@ int main(){
             } else{
                  printf("Nao foi encontrado\n");
             }
+
+            if(procurarDiagonal1(&nroLinhas, &nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
+                continue;
+            } else{
+                 printf("Nao foi encontrado\n");
+            }
+
+            if(procurarDiagonal1Invertido(&nroLinhas, &nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
+                continue;
+            } else{
+                 printf("Nao foi encontrado\n");
+            }
+
+            if(procurarDiagonal2(&nroLinhas, &nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
+                continue;
+            } else{
+                 printf("Nao foi encontrado\n");
+            }
+
+            if(procurarDiagonal2Invertido(&nroLinhas, &nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
+                continue;
+            } else{
+                 printf("Nao foi encontrado\n");
+            }
         }
 
         printf("\n\nEscrevendo arquivo de saida...\n");
@@ -101,20 +93,6 @@ int main(){
     system("PAUSE");
     return 1;
 }
-
-void inverter(char **palavraProcurada, char **palavraInvertida){
-    int tamanhoPalavra = strlen(*palavraProcurada);
-    int i = 0;
-
-    //obtenho a palavra invertida
-    while(tamanhoPalavra > 0){
-        (*palavraInvertida)[i] = (*palavraProcurada)[tamanhoPalavra - 1];
-        i++;
-        tamanhoPalavra--;
-    }
-    (*palavraInvertida)[i] = '\0';
-}
-
 
 int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetra ***texto){
     FILE *arq;
@@ -182,6 +160,7 @@ int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetr
     fclose(arq);
     return FALSE;
 }
+
 int escreverArquivoSaida(int *nroLinhas, int *nroColunas, TLetra ***texto){
     FILE *arq;
 	arq = fopen("saida.txt", "w");
@@ -217,99 +196,3 @@ int escreverArquivoSaida(int *nroLinhas, int *nroColunas, TLetra ***texto){
 
 	return TRUE;
 }
-
-
-int horizontal(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    int tamanhoPalavra = strlen(*palavraProcurada);
-    int i = 0, j = 0, substring = 0;
-
-    tamanhoPalavra = strlen(*palavraProcurada);
-
-    for(i = 0; i < *nroLinhas; i++){
-        for(j = 0; j <= (*nroColunas - tamanhoPalavra); j++){
-            char aux[NUMERO_LETRAS+1] = "";
-
-            substring = 0;
-            while(substring < tamanhoPalavra){
-                aux[substring] = (*texto)[i][substring+j].letra;
-                substring++;
-            }
-            aux[substring] = '\0';
-
-            if(strcmp(aux, (*palavraProcurada)) == 0){
-                //achou
-                substring = 0;
-                while(substring < tamanhoPalavra){
-                    (*texto)[i][substring+j].achou = TRUE;
-                    substring++;
-                }
-                textcolor(GREEN);
-                printf("'%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
-                textcolor(WHITE);
-                return ACHOU;
-            }
-        }
-    }
-
-    return NAO_ACHOU;
-}
-int procurarHorizontal(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Horizontal: ");
-    return horizontal(&(*nroLinhas), &(*nroColunas), &(*palavraProcurada), &(*texto));
-}
-int procurarHorizontalInvertido(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
-    inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf("Horizontal invertida: ");
-    return horizontal(&(*nroLinhas), &(*nroColunas), &palavraInvertida, &(*texto));
-
-}
-
-
-int vertical(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    int tamanhoPalavra = strlen(*palavraProcurada);
-    int i = 0, j = 0, substring = 0;
-
-    tamanhoPalavra = strlen(*palavraProcurada);
-
-    for(j = 0; j < *nroColunas; j++){
-        for(i = 0; i <= (*nroLinhas - tamanhoPalavra); i++){
-            char aux[NUMERO_LETRAS+1] = "";
-
-            substring = 0;
-            while(substring < tamanhoPalavra){
-                aux[substring] = (*texto)[i+substring][j].letra;
-                substring++;
-            }
-            aux[substring] = '\0';
-
-            if(strcmp(aux, (*palavraProcurada)) == 0){
-                //achou
-                substring = 0;
-                while(substring < tamanhoPalavra){
-                    (*texto)[substring+i][j].achou = TRUE;
-                    substring++;
-                }
-                textcolor(GREEN);
-                printf("'%s' inicio: (%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
-                textcolor(WHITE);
-                return ACHOU;
-            }
-        }
-    }
-
-    return NAO_ACHOU;
-}
-int procurarVertical(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Vertical: ");
-    return vertical(&(*nroLinhas), &(*nroColunas), &(*palavraProcurada), &(*texto));
-}
-int procurarVerticalInvertido(int *nroLinhas, int *nroColunas, char **palavraProcurada, TLetra ***texto){
-    char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
-    inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf("Vertical invertida: ");
-    return vertical(&(*nroLinhas), &(*nroColunas), &palavraInvertida, &(*texto));
-}
-
