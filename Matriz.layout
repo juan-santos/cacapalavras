@@ -2,19 +2,39 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="ler_matriz.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="ProcuraMatriz.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9440" topLine="163" />
+			<Cursor1 position="981" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="ler_matriz.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2770" topLine="47" />
+		</Cursor>
+	</File>
+	<File name="conio.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="78" />
+		</Cursor>
+	</File>
+	<File name="ProcuraMatriz.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="5256" topLine="39" />
 		</Cursor>
 		<Folding>
-			<Collapse line="14" />
+			<Collapse line="2" />
+			<Collapse line="16" />
+			<Collapse line="36" />
+			<Collapse line="51" />
+			<Collapse line="55" />
+			<Collapse line="65" />
+			<Collapse line="100" />
 			<Collapse line="104" />
-			<Collapse line="118" />
-			<Collapse line="221" />
-			<Collapse line="255" />
-			<Collapse line="259" />
-			<Collapse line="303" />
-			<Collapse line="307" />
 		</Folding>
+	</File>
+	<File name="conio2.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="834" topLine="180" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
