@@ -211,6 +211,79 @@ int procurarDiagonal1Invertido(int nroLinhas, int nroColunas, char **palavraProc
 
 
 int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+    int i, j, c, linha, coluna, nroLinhasDiagonal, nroColunasDiagonal, substring, tamanhoPalavra;
+    //numero de diagonais existentes de acordo com a matriz dada
+    nroLinhasDiagonal = (nroLinhas) + (nroColunas) - 1;
+
+    //numero maximo de linhas na diagonal de acordo com a matriz dada
+    nroColunasDiagonal = nroLinhas + 1;
+
+    //tamanho da palavra dada
+    tamanhoPalavra = strlen(*palavraProcurada);
+
+    //Percorrendo todas as linhas formadas nas diagonais
+    for(linha = 0; linha < nroLinhasDiagonal; linha++){
+
+        //variavel auxiliar que armazena a diagonal da iteração
+        TLetra *linhaDiagonal = (TLetra*) malloc (nroColunasDiagonal * sizeof(TLetra));
+
+        //variavel auxiliar que armazena substrings da iteração
+        char *aux = (char*) malloc ((tamanhoPalavra+1) * sizeof(char));
+
+        //obtenho a string da diagonal iterada
+        coluna = 0;
+
+        if(linha < nroLinhas) {
+            i = linha;
+            j = nroColunas-1;
+        } else {
+            i = nroLinhas - 1; //maior valor possivel da linha em uma matriz
+            j = nroColunas - linha - 1;
+        }
+
+        while((i > -1) && (j > -1)){
+            linhaDiagonal[coluna].letra = (*texto)[i][j].letra;
+            linhaDiagonal[coluna].linha = (*texto)[i][j].linha;
+            linhaDiagonal[coluna].coluna = (*texto)[i][j].coluna;
+            coluna++;
+            i--;
+            j--;
+        }
+        linhaDiagonal[coluna].letra = '\0';
+
+        for(c = 0; c < nroColunasDiagonal; c++){
+
+            if(linhaDiagonal[c].letra != (*palavraProcurada)[0]){
+                continue;
+            }
+
+            substring = 0;
+            while(substring < tamanhoPalavra){
+                aux[substring] = linhaDiagonal[substring+c].letra;
+                substring++;
+            }
+            aux[substring] = '\0';
+
+            if(strcmp(aux,(*palavraProcurada)) == 0){
+
+                substring = 0;
+                while(substring < tamanhoPalavra){
+                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].achou = ACHOU;
+                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
+                    substring++;
+                }
+
+                substring--;
+
+                textcolor(GREEN);
+                printf(" '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                textcolor(WHITE);
+                return ACHOU;
+            }
+
+        }
+    }
+
     return NAO_ACHOU;
 }
 int procurarDiagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
@@ -234,8 +307,6 @@ int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetr
         char c;
         //Obtenho a quantidade de linhas e colunas
         fscanf(arq,"%i %i\n", nroLinhas, nroColunas);
-
-        //(*nroLinhas)++;
 
         //aloco dinamicamente as colunas da matriz
         *texto = (TLetra**) malloc(*nroLinhas * sizeof(TLetra*));

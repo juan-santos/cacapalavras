@@ -39,7 +39,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="conio2.h" />
-		<Unit filename="ler_matriz.c">
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>

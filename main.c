@@ -1,4 +1,5 @@
 #include "ProcuraMatriz.h"
+#include <time.h>
 
 int main(){
 
@@ -14,6 +15,9 @@ int main(){
     if(lerArquivo(&nroLinhas, &nroColunas, &palavrasProcuradas, &texto) == TRUE) {
         //se for possível ler o arquivo
 
+        clock_t tInicio, tFim, tDecorrido;
+
+        tInicio = clock();
         for(i = 0; i < NUMERO_PALAVRAS; i++){
 
             printf("\n\n Procurando por: %s\n", palavrasProcuradas[i]);
@@ -53,7 +57,7 @@ int main(){
             } else{
                  printf(" Nao foi encontrado\n");
             }
-            /*
+
             if(procurarDiagonal2(nroLinhas, nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
                 continue;
             } else{
@@ -65,13 +69,16 @@ int main(){
             } else{
                  printf(" Nao foi encontrado\n");
             }
-
-        */
         }
 
+        tFim = clock();
+        tDecorrido = (tFim - tInicio);
+
+        printf("\n##################\n");
+        printf("# Tempo processo: %d \n",tDecorrido);
+        printf("##################\n");
         printf("\n\n Escrevendo arquivo de saida...\n");
-        //system("PAUSE");
-        printf("\n\n");
+
 
         /**/
         if(escreverArquivoSaida(nroLinhas, nroColunas, &texto) == FALSE){
@@ -86,8 +93,5 @@ int main(){
     free(texto);
     free(palavrasProcuradas);
 
-    //para o programa não fechar imediatamente
-    printf("\n\n Encerrando o programa\n");
-    //system("PAUSE");
     return 1;
 }
