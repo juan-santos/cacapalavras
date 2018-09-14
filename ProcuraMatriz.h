@@ -19,6 +19,8 @@ typedef struct{
   char letra;
   int achou;
   int cor;
+  int linha;
+  int coluna;
 } TLetra;
 
 int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto);

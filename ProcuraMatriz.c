@@ -24,6 +24,11 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
         for(j = 0; j <= (nroColunas - tamanhoPalavra); j++){
             char aux[NUMERO_LETRAS+1] = "";
 
+            //se as primeiras letras não baterem, nem perco tempo comparando
+            if((*texto)[i][j].letra != (*palavraProcurada)[0]){
+                continue;
+            }
+
             substring = 0;
             while(substring < tamanhoPalavra){
                 aux[substring] = (*texto)[i][substring+j].letra;
@@ -46,6 +51,7 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
             }
         }
     }
+
 
     return NAO_ACHOU;
 }
@@ -73,6 +79,11 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
         for(i = 0; i <= (nroLinhas - tamanhoPalavra); i++){
             char aux[NUMERO_LETRAS+1] = "";
 
+            //se as primeiras letras não baterem, nem perco tempo comparando o resto
+            if((*texto)[i][j].letra != (*palavraProcurada)[0]){
+                continue;
+            }
+
             substring = 0;
             while(substring < tamanhoPalavra){
                 aux[substring] = (*texto)[i+substring][j].letra;
@@ -85,7 +96,7 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
                 substring = 0;
                 while(substring < tamanhoPalavra){
                     (*texto)[substring+i][j].achou = TRUE;
-                    (*texto)[substring+i][j].cor = MAGENTA;
+                    (*texto)[substring+i][j].cor = GREEN;
                     substring++;
                 }
                 textcolor(GREEN);
@@ -111,32 +122,27 @@ int procurarVerticalInvertido(int nroLinhas, int nroColunas, char **palavraProcu
 }
 
 int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    int resultado;
-    int i, j, linha, coluna, nroLinhasDiagonal,nroColunasDiagonal;
+    int i, j, c, linha, coluna, nroLinhasDiagonal, nroColunasDiagonal, substring, tamanhoPalavra;
+    //numero de diagonais existentes de acordo com a matriz dada
+    nroLinhasDiagonal = (nroLinhas) + (nroColunas) - 1;
 
-    nroLinhasDiagonal = (nroLinhas) + (nroColunas) -1;
-    nroColunasDiagonal = 2 * nroLinhasDiagonal;
-    TLetra ***matrizDiagonal = (TLetra***) malloc(nroLinhasDiagonal * sizeof(TLetra**));
-    linha = 0;
+    //numero maximo de linhas na diagonal de acordo com a matriz dada
+    nroColunasDiagonal = nroLinhas + 1;
 
-    printf("\n");
+    //tamanho da palavra dada
+    tamanhoPalavra = strlen(*palavraProcurada);
 
+    //Percorrendo todas as linhas formadas nas diagonais
     for(linha = 0; linha < nroLinhasDiagonal; linha++){
-        matrizDiagonal[linha] = (TLetra**) malloc(nroColunasDiagonal * sizeof(TLetra*));
 
-        if(matrizDiagonal[linha] == NULL){
-            return NAO_ACHOU;
-        }
+        //variavel auxiliar que armazena a diagonal da iteração
+        TLetra *linhaDiagonal = (TLetra*) malloc (nroColunasDiagonal * sizeof(TLetra));
 
-        //inicio a matriz de ponteiros
-        for(j = 0; j < 2 * nroLinhasDiagonal; j++){
-            TLetra letra;
-            letra.letra = '\0';
-            letra.cor = WHITE;
-            letra.achou = FALSE;
+        //variavel auxiliar que armazena substrings da iteração
+        char *aux = (char*) malloc ((tamanhoPalavra+1) * sizeof(char));
 
-            (matrizDiagonal)[linha][j] = &letra;
-        }
+        //obtenho a string da diagonal iterada
+        coluna = 0;
 
         if(linha < nroLinhas) {
             i = linha;
@@ -146,24 +152,51 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
             j = 1 + linha - nroLinhas;
         }
 
-        coluna = 0;
         while((i > -1) && (j < nroColunas)){
-            matrizDiagonal[linha][coluna] = &(*texto)[i][j];
-            printf("%c", matrizDiagonal[linha][coluna]->letra);
+            linhaDiagonal[coluna].letra = (*texto)[i][j].letra;
+            linhaDiagonal[coluna].linha = (*texto)[i][j].linha;
+            linhaDiagonal[coluna].coluna = (*texto)[i][j].coluna;
             coluna++;
             i--;
             j++;
         }
-        printf("\n");
+        linhaDiagonal[coluna].letra = '\0';
+
+        for(c = 0; c < nroColunasDiagonal; c++){
+
+            if(linhaDiagonal[c].letra != (*palavraProcurada)[0]){
+                continue;
+            }
+
+            substring = 0;
+            while(substring < tamanhoPalavra){
+                aux[substring] = linhaDiagonal[substring+c].letra;
+                substring++;
+            }
+            aux[substring] = '\0';
+
+            if(strcmp(aux,(*palavraProcurada)) == 0){
+
+                substring = 0;
+                while(substring < tamanhoPalavra){
+                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].achou = ACHOU;
+                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
+                    substring++;
+                }
+
+                substring--;
+
+                textcolor(GREEN);
+                printf("'%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                textcolor(WHITE);
+                return ACHOU;
+            }
+
+        }
     }
 
-    resultado = horizontal(nroLinhasDiagonal, nroColunasDiagonal, &(*palavraProcurada), matrizDiagonal);
-    free(matrizDiagonal);
-
-    return resultado;
+    return NAO_ACHOU;
 }
-
-
 int procurarDiagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     printf("Diagonal 1: ");
     return diagonal1(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
@@ -231,6 +264,8 @@ int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetr
                 if (j < *nroColunas){
                     (*texto)[i][j].cor = BLACK;
                     (*texto)[i][j].achou = FALSE;
+                    (*texto)[i][j].linha = i;
+                    (*texto)[i][j].coluna = j;
                 }
             }
         }

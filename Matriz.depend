@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1536805046 source:d:\google drive\estudos\ufscar\perfil 06\so1\matriz\ler_matriz.c
+1536855621 source:d:\google drive\estudos\ufscar\perfil 06\so1\matriz\ler_matriz.c
 	"ProcuraMatriz.h"
 
 1536496973 d:\google drive\estudos\ufscar\perfil 06\so1\matriz\conio.h
@@ -16,12 +16,12 @@
 	<string.h>
 	"conio2.h"
 
-1536805164 d:\google drive\estudos\ufscar\perfil 06\so1\matriz\procuramatriz.h
+1536839317 d:\google drive\estudos\ufscar\perfil 06\so1\matriz\procuramatriz.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"conio2.h"
 
-1536804744 source:d:\google drive\estudos\ufscar\perfil 06\so1\matriz\procuramatriz.c
+1536887069 source:d:\google drive\estudos\ufscar\perfil 06\so1\matriz\procuramatriz.c
 	"ProcuraMatriz.h"
 

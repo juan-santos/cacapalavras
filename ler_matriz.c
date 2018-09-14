@@ -53,7 +53,7 @@ int main(){
             } else{
                  printf("Nao foi encontrado\n");
             }
-
+            /*
             if(procurarDiagonal2(nroLinhas, nroColunas, &palavrasProcuradas[i], &texto) == ACHOU){
                 continue;
             } else{
@@ -65,6 +65,8 @@ int main(){
             } else{
                  printf("Nao foi encontrado\n");
             }
+
+        */
         }
 
         printf("\n\nEscrevendo arquivo de saida...\n");
