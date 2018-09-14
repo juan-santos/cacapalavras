@@ -45,7 +45,7 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
                     substring++;
                 }
                 textcolor(GREEN);
-                printf("'%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
+                printf(" '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
                 textcolor(WHITE);
                 return ACHOU;
             }
@@ -56,14 +56,14 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
     return NAO_ACHOU;
 }
 int procurarHorizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Horizontal: ");
+    printf(" Horizontal: ");
     return horizontal(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarHorizontalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
-    printf("Horizontal invertida: ");
+    printf(" Horizontal invertida: ");
     return horizontal(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
 
 }
@@ -100,7 +100,7 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
                     substring++;
                 }
                 textcolor(GREEN);
-                printf("'%s' inicio: (%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
+                printf(" '%s' inicio: (%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
                 textcolor(WHITE);
                 return ACHOU;
             }
@@ -110,14 +110,14 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
     return NAO_ACHOU;
 }
 int procurarVertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Vertical: ");
+    printf(" Vertical: ");
     return vertical(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarVerticalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
-    printf("Vertical invertida: ");
+    printf(" Vertical invertida: ");
     return vertical(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
 }
 
@@ -187,7 +187,7 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 substring--;
 
                 textcolor(GREEN);
-                printf("'%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                printf(" '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
                 textcolor(WHITE);
                 return ACHOU;
             }
@@ -198,14 +198,14 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
     return NAO_ACHOU;
 }
 int procurarDiagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Diagonal 1: ");
+    printf(" Diagonal 1: ");
     return diagonal1(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarDiagonal1Invertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
-    printf("Diagonal 1 invertida: ");
+    printf(" Diagonal 1 invertida: ");
     return diagonal1(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
 }
 
@@ -214,14 +214,14 @@ int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
     return NAO_ACHOU;
 }
 int procurarDiagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf("Diagonal 2: ");
+    printf(" Diagonal 2: ");
     return diagonal2(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarDiagonal2Invertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
-    printf("Diagonal 2 invertida: ");
+    printf(" Diagonal 2 invertida: ");
     return diagonal2(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
 }
 
@@ -304,6 +304,7 @@ int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto){
 
         int i,j;
         for(i = 0; i < nroLinhas; i++){
+            printf(" ");
             for(j = 0; j < nroColunas; j++){
 
                 if(((*texto)[i][j].achou == TRUE) &&
