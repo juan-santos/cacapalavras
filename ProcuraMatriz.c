@@ -45,7 +45,7 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
                     substring++;
                 }
                 textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
+                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[i][substring+j].coluna, (*texto)[i][substring+j].linha);
                 textcolor(WHITE);
                 return ACHOU;
             }
@@ -60,12 +60,14 @@ int procurarHorizontal(int nroLinhas, int nroColunas, char **palavraProcurada, T
     return horizontal(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarHorizontalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+    int resultado;
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
     printf(" Horizontal invertida ");
-    return horizontal(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
-
+    resultado = horizontal(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    free(palavraInvertida);
+    return resultado;
 }
 
 
@@ -100,7 +102,7 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
                     substring++;
                 }
                 textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio: (%i,%i), fim: (%i,%i) \n", *palavraProcurada, i, j, i, substring+j);
+                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[substring+i][j].coluna, (*texto)[substring+i][j].linha);
                 textcolor(WHITE);
                 return ACHOU;
             }
@@ -116,11 +118,14 @@ int procurarVertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLe
     return vertical(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
 }
 int procurarVerticalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+    int resultado;
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
 
     printf(" Vertical invertida ");
-    return vertical(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    resultado = vertical(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    free(palavraInvertida);
+    return resultado;
 }
 
 int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
@@ -166,6 +171,7 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
 
         for(c = 0; c < nroColunasDiagonal; c++){
 
+            //Se a primeira letra não bater realizo a busca da proxima substring
             if(linhaDiagonal[c].letra != (*palavraProcurada)[0]){
                 continue;
             }
@@ -189,12 +195,15 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 substring--;
 
                 textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c + substring].linha, linhaDiagonal[c + substring].coluna);
                 textcolor(WHITE);
+                free(aux);
                 return ACHOU;
             }
 
         }
+
+        free(aux);
     }
 
     printf(" => Nao encontrado\n");
@@ -281,10 +290,13 @@ int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 textcolor(GREEN);
                 printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
                 textcolor(WHITE);
+                free(linhaDiagonal);
                 return ACHOU;
             }
 
         }
+
+        free(linhaDiagonal);
     }
 
     printf(" => Nao encontrado\n");

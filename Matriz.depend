@@ -40,7 +40,7 @@
 	<conio.h>
 	<windows.h>
 
-1537163813 source:d:\usuários\onedrive\Área de trabalho\so1\matriz\main.c
+1537168232 source:d:\usuários\onedrive\Área de trabalho\so1\matriz\main.c
 	"ProcuraMatriz.h"
 	<pthread.h>
 	<time.h>
@@ -51,6 +51,32 @@
 	<string.h>
 	"conio2.h"
 
-1536949900 source:d:\usuários\onedrive\Área de trabalho\so1\matriz\procuramatriz.c
+1537166411 source:d:\usuários\onedrive\Área de trabalho\so1\matriz\procuramatriz.c
+	"ProcuraMatriz.h"
+
+1536499907 source:d:\usuários\onedrive\documentos\so1\so1\matriz\conio.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+	"conio2.h"
+
+1536499907 d:\usuários\onedrive\documentos\so1\so1\matriz\conio2.h
+	<conio.h>
+	<windows.h>
+
+1537188113 source:d:\usuários\onedrive\documentos\so1\so1\matriz\main.c
+	"ProcuraMatriz.h"
+	<pthread.h>
+	<windows.h>
+	<time.h>
+
+1536944392 d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"conio2.h"
+
+1537188894 source:d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.c
 	"ProcuraMatriz.h"
 
