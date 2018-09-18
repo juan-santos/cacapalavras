@@ -33,7 +33,7 @@ int main(){
     printf("\n\n ##Tempo de procura com thread: %lf ms\n", (double)tempo / (CLOCKS_PER_SEC/1000));
     printf("############################################################################\n\n");
 
-    if(escreverArquivoSaida(nroLinhas, nroColunas, &texto) == FALSE){
+    if(escreverArquivoSaida(nroLinhas, nroColunas, texto) == FALSE){
         printf(" Erro, nao foi possivel criar o arquivo\n");
         exit(-1);
     }
@@ -55,6 +55,7 @@ clock_t processoContinuo(){
     }
 
     tFim = clock();
+    //printf(" \n %d %d \n", tFim, tInicio);
     return (tFim - tInicio);
 }
 

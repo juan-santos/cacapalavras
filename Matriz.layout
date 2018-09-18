@@ -2,9 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1763" topLine="44" />
+		</Cursor>
+	</File>
+	<File name="ProcuraMatriz.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="641" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="ProcuraMatriz.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="553" topLine="0" />
+			<Cursor1 position="572" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="conio.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -14,42 +24,7 @@
 	</File>
 	<File name="conio2.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="286" topLine="0" />
+			<Cursor1 position="286" topLine="39" />
 		</Cursor>
-	</File>
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="276" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="17" />
-			<Collapse line="21" />
-			<Collapse line="47" />
-			<Collapse line="60" />
-			<Collapse line="78" />
-			<Collapse line="86" />
-		</Folding>
-	</File>
-	<File name="ProcuraMatriz.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5543" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="2" />
-			<Collapse line="16" />
-			<Collapse line="57" />
-			<Collapse line="61" />
-			<Collapse line="73" />
-			<Collapse line="115" />
-			<Collapse line="119" />
-			<Collapse line="130" />
-			<Collapse line="211" />
-			<Collapse line="215" />
-			<Collapse line="224" />
-			<Collapse line="304" />
-			<Collapse line="308" />
-			<Collapse line="316" />
-			<Collapse line="382" />
-		</Folding>
 	</File>
 </CodeBlocks_layout_file>

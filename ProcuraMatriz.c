@@ -407,7 +407,7 @@ int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetr
     fclose(arq);
     return FALSE;
 }
-int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto){
+int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra **texto){
     FILE *arq;
 	arq = fopen("saida.txt", "w");
 
@@ -421,16 +421,16 @@ int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto){
             printf(" ");
             for(j = 0; j < nroColunas; j++){
 
-                if(((*texto)[i][j].achou == TRUE) &&
-                   ((*texto)[i][j].letra > 96) &&
-                   ((*texto)[i][j].letra < 123))
-                {
-                    (*texto)[i][j].letra = (*texto)[i][j].letra - 32;
+                if((texto[i][j].achou == TRUE) &&
+                   (texto[i][j].letra > 96) &&
+                   (texto[i][j].letra < 123)) {
+
+                    texto[i][j].letra = texto[i][j].letra - 32;
                    // textcolor((*texto)[i][j].cor);
                 }
 
-                fputc((*texto)[i][j].letra, arq);
-                printf("%c", (*texto)[i][j].letra);
+                fputc(texto[i][j].letra, arq);
+                printf("%c", texto[i][j].letra);
                 //textcolor(WHITE);
             }
 

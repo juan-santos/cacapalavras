@@ -26,7 +26,7 @@ typedef struct{
   int coluna;
 } TLetra;
 
-int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto);
+int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra **texto);
 int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetra ***texto);
 
 int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao);
