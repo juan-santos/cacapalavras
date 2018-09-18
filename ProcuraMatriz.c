@@ -41,7 +41,7 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
                 substring = 0;
                 while(substring < tamanhoPalavra){
                     (*texto)[i][substring+j].achou = TRUE;
-                    (*texto)[i][substring+j].cor = RED;
+                    //(*texto)[i][substring+j].cor = RED;
                     substring++;
                 }
 
@@ -82,7 +82,6 @@ int procurarHorizontalInvertido(int nroLinhas, int nroColunas, char **palavraPro
     return resultado;
 }
 
-
 int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao){
     int tamanhoPalavra = strlen(*palavraProcurada);
     int i = 0, j = 0, substring = 0;
@@ -110,7 +109,7 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
                 substring = 0;
                 while(substring < tamanhoPalavra){
                     (*texto)[substring+i][j].achou = TRUE;
-                    (*texto)[substring+i][j].cor = GREEN;
+                    //(*texto)[substring+i][j].cor = GREEN;
                     substring++;
                 }
 
@@ -207,7 +206,7 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 substring = 0;
                 while(substring < tamanhoPalavra){
                     (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].achou = ACHOU;
-                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
+                    //(*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
                     substring++;
                 }
 
@@ -305,7 +304,7 @@ int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 substring = 0;
                 while(substring < tamanhoPalavra){
                     (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].achou = ACHOU;
-                    (*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
+                    //(*texto)[linhaDiagonal[substring+c].linha][linhaDiagonal[substring+c].coluna].cor = YELLOW;
                     substring++;
                 }
 
@@ -377,7 +376,7 @@ int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetr
                 }
 
                 if (j < *nroColunas){
-                    (*texto)[i][j].cor = BLACK;
+                    //(*texto)[i][j].cor = BLACK;
                     (*texto)[i][j].achou = FALSE;
                     (*texto)[i][j].linha = i;
                     (*texto)[i][j].coluna = j;
@@ -427,18 +426,18 @@ int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto){
                    ((*texto)[i][j].letra < 123))
                 {
                     (*texto)[i][j].letra = (*texto)[i][j].letra - 32;
-                    textcolor((*texto)[i][j].cor);
+                   // textcolor((*texto)[i][j].cor);
                 }
 
                 fputc((*texto)[i][j].letra, arq);
                 printf("%c", (*texto)[i][j].letra);
-                textcolor(WHITE);
+                //textcolor(WHITE);
             }
 
             fputc('\n', arq);
             printf("\n");
         }
-        textcolor(WHITE);
+        //textcolor(WHITE);
 		fclose(arq);
 	}
 

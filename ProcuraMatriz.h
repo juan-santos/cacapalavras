@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include"conio2.h"
+//#include "conio2.h"
 
 #define TRUE 1
 #define FALSE 0
@@ -21,7 +21,7 @@
 typedef struct{
   char letra;
   int achou;
-  int cor;
+  //int cor;
   int linha;
   int coluna;
 } TLetra;
