@@ -1,7 +1,5 @@
 #include "ProcuraMatriz.h"
 #include <pthread.h>
-#include <windows.h>
-//#include <unistd.h>
 #include <time.h>
 
 clock_t processoContinuo();
@@ -46,7 +44,6 @@ int main(){
     return 1;
 }
 
-
 clock_t processoContinuo(){
     int i;
     clock_t tInicio, tFim;
@@ -64,25 +61,36 @@ clock_t processoContinuo(){
 clock_t pesquisaThreads(){
     //será criado uma thread para cada palavra
     pthread_t thr[NUMERO_PALAVRAS];
-    clock_t tInicio, tFim;
+    clock_t tTempo = 0;
+    clock_t retorno = 0;
     int i = 0;
 
-    tInicio = clock();
     for(i = 0; i < NUMERO_PALAVRAS; i++){
-        pthread_create(&thr[i], NULL, f_thread, (void*) &palavrasProcuradas[i]);
+       pthread_create(&thr[i], NULL, f_thread, (void*) &palavrasProcuradas[i]);
     }
 
     for(i = 0; i < NUMERO_PALAVRAS; i++){
-        pthread_join(thr[i], NULL);
+        pthread_join(thr[i], (void*) &retorno);
+        tTempo += retorno;
     }
-    tFim = clock();
 
-    return (tFim - tInicio);
+    return tTempo;
 }
 
 void* f_thread(void *v) {
-  procuraPalavra( (char**) v);
-  return NULL;
+    clock_t tInicio, tFim, tTempo;
+
+    tInicio = clock(); //tempo inicial
+    procuraPalavra( (char**) v);
+    tFim = clock(); //tempo final
+
+    //calculo de tempo da thread
+    tTempo = tFim - tInicio;
+
+    //printf("\n tempo: %lf \n",(double) tTempo);
+    pthread_exit((void**) tTempo);
+
+    return NULL;
 }
 
 void procuraPalavra(char **palavrasProcuradas){
