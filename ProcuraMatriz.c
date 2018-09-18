@@ -14,7 +14,7 @@ void inverter(char **palavraProcurada, char **palavraInvertida){
 }
 
 
-int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao){
     int tamanhoPalavra = strlen(*palavraProcurada);
     int i = 0, j = 0, substring = 0;
 
@@ -44,34 +44,46 @@ int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra **
                     (*texto)[i][substring+j].cor = RED;
                     substring++;
                 }
-                textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[i][substring+j].coluna, (*texto)[i][substring+j].linha);
-                textcolor(WHITE);
+
+                if(direcao == SENTIDO_NORMAL){
+
+                    printf("HORIZONTAL => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada,
+                           (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[i][substring+j].coluna, (*texto)[i][substring+j].linha);
+                } else{
+
+                    printf("HORIZONTAL INVERTIDO => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada,
+                           (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[i][substring+j].coluna, (*texto)[i][substring+j].linha);
+                }
+
                 return ACHOU;
             }
         }
     }
 
-    printf(" => Nao encontrado\n");
+    if(direcao == SENTIDO_NORMAL){
+
+        printf("HORIZONTAL => Nao encontrado: %s\n\n", *palavraProcurada);
+    } else{
+
+        printf("HORIZONTAL INVERTIDO => Nao encontrado: %s\n\n", *palavraProcurada);
+    }
+
     return NAO_ACHOU;
 }
 int procurarHorizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf(" Horizontal ");
-    return horizontal(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
+    return horizontal(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto), SENTIDO_NORMAL);
 }
 int procurarHorizontalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     int resultado;
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf(" Horizontal invertida ");
-    resultado = horizontal(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    resultado = horizontal(nroLinhas, nroColunas, &palavraInvertida, &(*texto), SENTIDO_INVERSO);
     free(palavraInvertida);
     return resultado;
 }
 
 
-int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao){
     int tamanhoPalavra = strlen(*palavraProcurada);
     int i = 0, j = 0, substring = 0;
 
@@ -101,34 +113,41 @@ int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***t
                     (*texto)[substring+i][j].cor = GREEN;
                     substring++;
                 }
-                textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[substring+i][j].coluna, (*texto)[substring+i][j].linha);
-                textcolor(WHITE);
+
+                if(direcao == SENTIDO_NORMAL){
+                    printf("VERTICAL => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada, (*texto)[i][j].coluna
+                           , (*texto)[i][j].linha, (*texto)[substring+i][j].coluna, (*texto)[substring+i][j].linha);
+                } else {
+                    printf("VERTICAL INVERTIDO => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada
+                           , (*texto)[i][j].coluna, (*texto)[i][j].linha, (*texto)[substring+i][j].coluna, (*texto)[substring+i][j].linha);
+                }
+
                 return ACHOU;
             }
         }
     }
 
-    printf(" => Nao encontrado\n");
+    if(direcao == SENTIDO_NORMAL){
+        printf("VERTICAL => Nao encontrado: %s\n\n", *palavraProcurada);
+    } else{
+        printf("VERTICAL INVERTIDO => Nao encontrado: %s\n\n", *palavraProcurada);
+    }
 
     return NAO_ACHOU;
 }
 int procurarVertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf(" Vertical ");
-    return vertical(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
+    return vertical(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto), SENTIDO_NORMAL);
 }
 int procurarVerticalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     int resultado;
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf(" Vertical invertida ");
-    resultado = vertical(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    resultado = vertical(nroLinhas, nroColunas, &palavraInvertida, &(*texto), SENTIDO_INVERSO);
     free(palavraInvertida);
     return resultado;
 }
 
-int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao){
     int i, j, c, linha, coluna, nroLinhasDiagonal, nroColunasDiagonal, substring, tamanhoPalavra;
     //numero de diagonais existentes de acordo com a matriz dada
     nroLinhasDiagonal = (nroLinhas) + (nroColunas) - 1;
@@ -193,10 +212,14 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 }
 
                 substring--;
+                if(direcao == SENTIDO_NORMAL){
+                    printf("DIAGONAL 1 => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada, linhaDiagonal[c].linha
+                           , linhaDiagonal[c].coluna, linhaDiagonal[c + substring].linha, linhaDiagonal[c + substring].coluna);
+                } else {
+                    printf("DIAGONAL 1 INVERTIDO => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada, linhaDiagonal[c].linha
+                           , linhaDiagonal[c].coluna, linhaDiagonal[c + substring].linha, linhaDiagonal[c + substring].coluna);
+                }
 
-                textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c + substring].linha, linhaDiagonal[c + substring].coluna);
-                textcolor(WHITE);
                 free(aux);
                 return ACHOU;
             }
@@ -206,23 +229,24 @@ int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
         free(aux);
     }
 
-    printf(" => Nao encontrado\n");
+    if(direcao == SENTIDO_NORMAL){
+        printf("DIAGONAL 1 => Nao encontrado: %s\n\n", *palavraProcurada);
+    } else{
+        printf("DIAGONAL 1 INVERTIDO => Nao encontrado: %s\n\n", *palavraProcurada);
+    }
+
     return NAO_ACHOU;
 }
 int procurarDiagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf(" Diagonal 1 ");
-    return diagonal1(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
+    return diagonal1(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto), SENTIDO_NORMAL);
 }
 int procurarDiagonal1Invertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf(" Diagonal 1 invertida ");
-    return diagonal1(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    return diagonal1(nroLinhas, nroColunas, &palavraInvertida, &(*texto), SENTIDO_INVERSO);
 }
 
-
-int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
+int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao){
     int i, j, c, linha, coluna, nroLinhasDiagonal, nroColunasDiagonal, substring, tamanhoPalavra;
     //numero de diagonais existentes de acordo com a matriz dada
     nroLinhasDiagonal = (nroLinhas) + (nroColunas) - 1;
@@ -286,32 +310,36 @@ int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***
                 }
 
                 substring--;
-
-                textcolor(GREEN);
-                printf(" => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n", *palavraProcurada, linhaDiagonal[c].linha, linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
-                textcolor(WHITE);
+                if(direcao == SENTIDO_NORMAL){
+                    printf("DIAGONAL 2 => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada, linhaDiagonal[c].linha
+                           , linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                } else {
+                    printf("DIAGONAL 2 INVERTIDO => ENCONTRADO '%s' inicio:(%i,%i), fim: (%i,%i) \n\n", *palavraProcurada, linhaDiagonal[c].linha
+                           , linhaDiagonal[c].coluna, linhaDiagonal[c+substring].linha, linhaDiagonal[c+substring].coluna);
+                }
                 free(linhaDiagonal);
                 return ACHOU;
             }
-
         }
 
         free(linhaDiagonal);
     }
 
-    printf(" => Nao encontrado\n");
+    if(direcao == SENTIDO_NORMAL){
+        printf("DIAGONAL 2 => Nao encontrado: %s\n\n", *palavraProcurada);
+    } else{
+        printf("DIAGONAL 2 INVERTIDO => Nao encontrado: %s\n\n", *palavraProcurada);
+    }
+
     return NAO_ACHOU;
 }
 int procurarDiagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
-    printf(" Diagonal 2 ");
-    return diagonal2(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto));
+    return diagonal2(nroLinhas, nroColunas, &(*palavraProcurada), &(*texto), SENTIDO_NORMAL);
 }
 int procurarDiagonal2Invertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto){
     char *palavraInvertida = (char*) malloc(NUMERO_LETRAS + 1 * sizeof(char));
     inverter(&(*palavraProcurada), &(palavraInvertida));
-
-    printf(" Diagonal 2 invertida ");
-    return diagonal2(nroLinhas, nroColunas, &palavraInvertida, &(*texto));
+    return diagonal2(nroLinhas, nroColunas, &palavraInvertida, &(*texto), SENTIDO_INVERSO);
 }
 
 int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetra ***texto){

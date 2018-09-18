@@ -65,18 +65,18 @@
 	<conio.h>
 	<windows.h>
 
-1537188113 source:d:\usuários\onedrive\documentos\so1\so1\matriz\main.c
+1537231573 source:d:\usuários\onedrive\documentos\so1\so1\matriz\main.c
 	"ProcuraMatriz.h"
 	<pthread.h>
 	<windows.h>
 	<time.h>
 
-1536944392 d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.h
+1537230381 d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"conio2.h"
 
-1537188894 source:d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.c
+1537231037 source:d:\usuários\onedrive\documentos\so1\so1\matriz\procuramatriz.c
 	"ProcuraMatriz.h"
 

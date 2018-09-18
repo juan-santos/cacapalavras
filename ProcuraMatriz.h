@@ -15,6 +15,9 @@
 #define ACHOU 1
 #define NAO_ACHOU 0
 
+#define SENTIDO_NORMAL 1
+#define SENTIDO_INVERSO 0
+
 typedef struct{
   char letra;
   int achou;
@@ -26,10 +29,10 @@ typedef struct{
 int escreverArquivoSaida(int nroLinhas, int nroColunas, TLetra ***texto);
 int lerArquivo(int *nroLinhas, int *nroColunas, char ***palavasProcuradas, TLetra ***texto);
 
-int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);
-int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);
-int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);
-int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);
+int vertical(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao);
+int horizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao);
+int diagonal1(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao);
+int diagonal2(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto, int direcao);
 
 int procurarHorizontal(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);
 int procurarHorizontalInvertido(int nroLinhas, int nroColunas, char **palavraProcurada, TLetra ***texto);

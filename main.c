@@ -17,8 +17,9 @@ char **palavrasProcuradas = NULL;
 
 int main(){
 
-
-    printf(" #### Threads - Caca-palavras ####");
+    printf("\n############################################################################\n");
+    printf(" #### Threads - Caca-palavras ####\n");
+    printf("############################################################################\n\n");
     if(lerArquivo(&nroLinhas, &nroColunas, &palavrasProcuradas, &texto) == FALSE) {
         //se o arquivo não foi encontrado
         printf(" Problemas ao ler do arquivo\n");
@@ -26,12 +27,13 @@ int main(){
     }
 
     tempo = processoContinuo();
-    printf("\n\n ##Tempo continuo: %lf ms\n", (double)tempo / (CLOCKS_PER_SEC/1000));
+    printf("\n\n ##Tempo de procura continua: %lf ms\n", (double)tempo / (CLOCKS_PER_SEC/1000));
+    printf("############################################################################\n\n");
 
-    printf("############################################################################\n");
 
     tempo = pesquisaThreads();
-    printf("\n\n ##Tempo thread: %lf ms\n", (double)tempo / (CLOCKS_PER_SEC/1000));
+    printf("\n\n ##Tempo de procura com thread: %lf ms\n", (double)tempo / (CLOCKS_PER_SEC/1000));
+    printf("############################################################################\n\n");
 
     if(escreverArquivoSaida(nroLinhas, nroColunas, &texto) == FALSE){
         printf(" Erro, nao foi possivel criar o arquivo\n");
@@ -51,6 +53,7 @@ clock_t processoContinuo(){
 
     tInicio = clock();
     for(i = 0; i < NUMERO_PALAVRAS; i++){
+        printf("***** PALAVRA %i ***** \n", i+1);
         procuraPalavra(&palavrasProcuradas[i]);
     }
 
@@ -66,27 +69,23 @@ clock_t pesquisaThreads(){
 
     tInicio = clock();
     for(i = 0; i < NUMERO_PALAVRAS; i++){
-        //pthread_create(&thr[i], NULL, f_thread, (void*) i);
-        //pthread_join(thr[i], NULL);
-
-        procuraPalavra(&palavrasProcuradas[i]);
+        pthread_create(&thr[i], NULL, f_thread, (void*) &palavrasProcuradas[i]);
     }
 
+    for(i = 0; i < NUMERO_PALAVRAS; i++){
+        pthread_join(thr[i], NULL);
+    }
     tFim = clock();
+
     return (tFim - tInicio);
 }
 
 void* f_thread(void *v) {
-  int thr_id;
-  Sleep(1);
-  thr_id = *(int*) v;
-  printf("Thread %d.\n", thr_id);
+  procuraPalavra( (char**) v);
   return NULL;
 }
 
 void procuraPalavra(char **palavrasProcuradas){
-
-   printf("\n\n Procurando por: %s\n", (*palavrasProcuradas));
 
     if(procurarHorizontal(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
         return;
