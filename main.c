@@ -95,35 +95,35 @@ void* f_thread(void *v) {
 
 void procuraPalavra(char **palavrasProcuradas){
 
-    if(procurarHorizontal(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarHorizontal(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarHorizontalInvertido(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarHorizontalInvertido(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarVertical(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarVertical(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarVerticalInvertido(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarVerticalInvertido(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarDiagonal1(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarDiagonal1(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarDiagonal1Invertido(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarDiagonal1Invertido(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarDiagonal2(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarDiagonal2(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 
-    if(procurarDiagonal2Invertido(nroLinhas, nroColunas, &(*palavrasProcuradas), &texto) == ACHOU){
+    if(procurarDiagonal2Invertido(nroLinhas, nroColunas, palavrasProcuradas, &texto) == ACHOU){
         return;
     }
 }
